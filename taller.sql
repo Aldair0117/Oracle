@@ -647,3 +647,60 @@ ROLLBACK;
 
 SELECT *
 FROM my_employee;
+
+ --- Practica 9
+ 
+-- Cree una tabla llamada DEPTOS con la siguiente estructura:
+
+CREATE TABLE DEPTOS(
+ ID NUMBER(7) PRIMARY KEY,
+ NAME VARCHAR2(25) NOT NULL
+ );
+
+-- Rellene la tabla DEPTOS con todas las filas de la tabla DEPARTMENTS. Incluya solo las columnas que necesite.
+
+INSERT INTO DEPTOS 
+VALUES (1, ITPRO); 
+
+-- Cree una tabla llamada EMPS con la siguiente estructura:
+
+CREATE TABLE EMPS(
+ ID NUMBER(7) PRIMARY KEY,
+ LAST_NAME VARCHAR2(25) NOT NULL,
+ FIRST_NAME VARCHAR2(25) NOT NULL,
+ DEPT_ID NUMBER(7) FOREIGN KEY (DEPTOS)
+ REFERENCES DEPTOS(ID) 
+ );
+
+-- Modifique la tabla EMPS para permitir una longitud de apellido de 35.
+
+ALTER TABLE EMPS
+MODIFY (LAST_NAME VARCHAR2(35));
+
+-- Agregue 3 filas cualesquiera en la tabla EMPS y consulte los datos.
+
+INSERT INTO EMPS
+VALUES (1, CASTILLO , ALDAIR, 1);
+VALUES (2, VAZQUEZ , NOEL, 1);
+VALUES (3, CORTEZ , HECOAL, 1);
+
+-- Cambie el nombre de la tabla EMPS a EMPLEADOS
+
+RENAME EMPS TO EMPLEADOS
+
+-- Cree la tabla EMPLOYEES_2 basándose en la estructura de la tabla EMPLOYEES. 
+-- Incluya solo las columnas EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY y DEPARTMENT_ID. 
+-- Llame a las columnas de la nueva tabla ID, NOMBRE, APELLIDO, SALARIO y CLAVE_DEPT, respectivamente.
+
+CREATE TABLE EMPLOYEES_2 
+AS
+    SELECT EMPLOYEE_ID AS ID, FIRST_NAME AS NOMBRE, LAST_NAME AS APELLIDO, SALARY AS SALARIO, DEPARTMENT_ID AS CLAVE_DEPT
+FROM EMPLOYEES;
+
+-- Borre la columna FIRST_NAME de la tabla EMPLEADOS. 
+-- Confirme la modificación comprobando la descripción de la tabla con el comando DESC.
+
+ALTER TABLE EMPLEADOS 
+DROP FIRST_NAME;
+
+DESC EMPLEADOS;
